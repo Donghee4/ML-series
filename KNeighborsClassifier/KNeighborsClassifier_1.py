@@ -1,3 +1,6 @@
+#k-최근접이웃 (k-Nearest Neighbors)을 이용한 분류
+#데이터를 전처리 전이므로 [25,150] 데이터의 정답은 1번 도미이지만, 모델예측에서는 0번 빙어를 나타내는 문제가 있음
+#데이터는 0번 빙어, 1번 도미
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import train_test_split
 import numpy as np
