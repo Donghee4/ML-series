@@ -2,6 +2,8 @@
 #데이터는 농어의 길이, 무게
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsRegressor
 
 perch_length = np.array([8.4, 13.7, 15.0, 16.2, 17.4, 18.0, 18.7, 19.0, 19.6, 20.0, 21.0,
         21.0, 21.0, 21.3, 22.0, 22.0, 22.0, 22.0, 22.0, 22.5, 22.5, 22.7,
@@ -16,6 +18,17 @@ perch_weight = np.array([5.9, 32.0, 40.0, 51.5, 70.0, 100.0, 78.0, 80.0, 85.0, 8
         556.0, 840.0, 685.0, 700.0, 700.0, 690.0, 900.0, 650.0, 820.0,
         850.0, 900.0, 1015.0, 820.0, 1100.0, 1000.0, 1100.0, 1000.0,
         1000.0])
+
+#데이터 분리 및 차원 처리
+train_input, test_input, train_target, test_target = train_test_split(perch_length, perch_weight, random_state=42)
+train_input = train_input.reshape(-1,1) #sklearn은 훈련 세트가 2차원이어야 하므로 데이터를 2차원으로 변경
+test_input = test_input.reshape(-1,1)
+# print(train_input.shape, test_input.shape)
+
+knr = KNeighborsRegressor()
+knr.fit(train_input, train_target)
+print(knr.score(test_input, test_target))  #0.99280
+#정확도는 R^2값으로 측정됨
 
 plt.scatter(perch_length, perch_weight)
 plt.xlabel('length')
