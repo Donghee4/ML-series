@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_absolute_error
 
 perch_length = np.array([8.4, 13.7, 15.0, 16.2, 17.4, 18.0, 18.7, 19.0, 19.6, 20.0, 21.0,
         21.0, 21.0, 21.3, 22.0, 22.0, 22.0, 22.0, 22.0, 22.5, 22.5, 22.7,
@@ -28,9 +29,18 @@ test_input = test_input.reshape(-1,1)
 knr = KNeighborsRegressor()
 knr.fit(train_input, train_target)
 print(knr.score(test_input, test_target))  #0.99280
-#정확도는 R^2값으로 측정됨
+#정확도는 R^2(결정계수)값으로 측정됨
 
-plt.scatter(perch_length, perch_weight)
-plt.xlabel('length')
-plt.ylabel('weight')
-plt.show()
+test_prediction = knr.predict(test_input)
+mae = mean_absolute_error(test_target, test_prediction) #평균적으로 19g 차이
+print(knr.score(train_input, train_target)) #0.96988    테스트 세트보다 훈련 세트가 점수가 낮으니 과소적합. 
+
+knr.n_neighbors = 3
+knr.fit(train_input, train_target)
+print(knr.score(train_input, train_target)) #0.98049
+print(knr.score(test_input, test_target))   #0.97464
+
+# plt.scatter(perch_length, perch_weight)
+# plt.xlabel('length')
+# plt.ylabel('weight')
+# plt.show()
