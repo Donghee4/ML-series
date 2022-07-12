@@ -40,7 +40,7 @@ knr.fit(train_input, train_target)
 print(knr.score(train_input, train_target)) #0.98049
 print(knr.score(test_input, test_target))   #0.97464    #테스트와 훈련 세트 점수 둘 다 높으므로 훈련이 잘 됨
 
-# plt.scatter(perch_length, perch_weight)
-# plt.xlabel('length')
-# plt.ylabel('weight')
-# plt.show()
+plt.scatter(perch_length, perch_weight)
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
