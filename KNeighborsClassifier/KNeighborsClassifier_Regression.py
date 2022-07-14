@@ -1,4 +1,5 @@
 #k-최근접 이웃 회귀(K-Nearest Neighbors Regression)를 이용한 무게 추정
+#추정값은 이웃 데이터의 타겟값의 평균으로 결정된다
 #데이터는 농어의 길이, 무게
 import numpy as np
 import matplotlib.pyplot as plt
@@ -32,10 +33,11 @@ print(knr.score(test_input, test_target))  #0.99280
 #정확도는 R^2(결정계수)값으로 측정됨
 
 test_prediction = knr.predict(test_input)
+print(test_prediction)
 mae = mean_absolute_error(test_target, test_prediction) #평균적으로 19g 차이
 print(knr.score(train_input, train_target)) #0.96988    테스트 세트보다 훈련 세트가 점수가 낮으니 과소적합. 
 
-knr.n_neighbors = 3
+knr.n_neighbors = 3     #참조하는 데이터의 수를 줄여서 그 특징을 더 잘 뽑아냄. 모델이 더 복잡해짐
 knr.fit(train_input, train_target)
 print(knr.score(train_input, train_target)) #0.98049
 print(knr.score(test_input, test_target))   #0.97464    #테스트와 훈련 세트 점수 둘 다 높으므로 훈련이 잘 됨
