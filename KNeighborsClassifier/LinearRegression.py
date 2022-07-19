@@ -1,7 +1,8 @@
-#선형 회귀
+#선형 회귀 및 다항 회귀
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 perch_length = np.array([8.4, 13.7, 15.0, 16.2, 17.4, 18.0, 18.7, 19.0, 19.6, 20.0, 21.0,
         21.0, 21.0, 21.3, 22.0, 22.0, 22.0, 22.0, 22.0, 22.5, 22.5, 22.7,
@@ -28,3 +29,13 @@ lr.fit(train_input, train_target)
 print(lr.predict([[50]]))
 print(lr.coef_, lr.intercept_)  #모델 파라미터 확인
 
+plt.scatter(train_input, train_target)
+plt.plot([15,50], [15 * lr.coef_ + lr.intercept_, 50 * lr.coef_ + lr.intercept_])
+plt.scatter(50, 1241.8, marker='^')
+plt.xlabel('length')
+plt.ylabel('weight')
+plt.show()
+
+print(lr.score(train_input,train_target))   #0.93984
+print(lr.score(test_input, test_target))    #0.82475   
+#점수가 낮고 그래프가 선형 회귀에 적합하지 않음
