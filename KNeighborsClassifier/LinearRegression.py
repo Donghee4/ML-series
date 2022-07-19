@@ -23,19 +23,44 @@ train_input, test_input, train_target, test_target = train_test_split(perch_leng
 train_input = train_input.reshape(-1,1) #sklearn은 훈련 세트가 2차원이어야 하므로 데이터를 2차원으로 변경
 test_input = test_input.reshape(-1,1)
 
-lr = LinearRegression()
-lr.fit(train_input, train_target)
+#-----------------------------------------------------------------------------------------------
+#선형 회귀
+# lr = LinearRegression()
+# lr.fit(train_input, train_target)
 
-print(lr.predict([[50]]))
-print(lr.coef_, lr.intercept_)  #모델 파라미터 확인
+# print(lr.predict([[50]]))
+# print(lr.coef_, lr.intercept_)  #모델 파라미터 확인
+
+# # plt.scatter(train_input, train_target)
+# # plt.plot([15,50], [15 * lr.coef_ + lr.intercept_, 50 * lr.coef_ + lr.intercept_])
+# # plt.scatter(50, 1241.8, marker='^')
+# # plt.xlabel('length')
+# # plt.ylabel('weight')
+# # plt.show()
+
+# print(lr.score(train_input,train_target))   #0.93984
+# print(lr.score(test_input, test_target))    #0.82475   
+# #점수가 낮고 그래프가 선형 회귀에 적합하지 않음
+#----------------------------------------------------------------------------------------------------
+#다항 회귀
+#2차방정식 -> y = ax^2 + bx + c
+train_poly = np.column_stack((train_input ** 2, train_input))
+test_poly = np.column_stack((test_input ** 2, test_input))
+print(train_poly.shape, test_poly.shape)
+
+lr = LinearRegression()
+lr.fit(train_poly, train_target)
+print(lr.predict([[50**2, 50]]))    #1573.98423
+print(lr.coef_, lr.intercept_) #[1.01, -21.6], 116.05
+
+point = np.arange(15,50)
 
 plt.scatter(train_input, train_target)
-plt.plot([15,50], [15 * lr.coef_ + lr.intercept_, 50 * lr.coef_ + lr.intercept_])
-plt.scatter(50, 1241.8, marker='^')
+plt.plot(point, 1.01*point**2 - 21.6*point + 116.05)
+plt.scatter(50,1573, marker='^')
 plt.xlabel('length')
 plt.ylabel('weight')
 plt.show()
 
-print(lr.score(train_input,train_target))   #0.93984
-print(lr.score(test_input, test_target))    #0.82475   
-#점수가 낮고 그래프가 선형 회귀에 적합하지 않음
+print(lr.score(train_poly, train_target))   #0.98068
+print(lr.score(test_poly, test_target))     #0.977593   두 경우 모두 점수가 높게 나왔지만 테스트점수가 조금 더 높으므로 과소적합 문제가 남아있는 듯
