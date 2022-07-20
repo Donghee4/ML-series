@@ -1,4 +1,4 @@
-#선형 회귀 및 다항 회귀
+#선형 회귀 및 다항 회귀 (linear regression, polynomial regression)
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
