@@ -1,4 +1,4 @@
-#다중 회귀(multiple regression)
+#다중 회귀(multiple regression)123
 from sklearn.model_selection import train_test_split
 
 import pandas as pd
