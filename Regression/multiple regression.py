@@ -3,6 +3,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import PolynomialFeatures
 import pandas as pd
 import numpy as np
+import numpy as np
+from sklearn import calibration
 
 df = pd.read_csv('https://bit.ly/perch_csv_data')
 perch_full = df.to_numpy()
