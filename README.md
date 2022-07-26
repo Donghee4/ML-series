@@ -1,6 +1,6 @@
 # ML-series
-machine learning + deep learning
-분류를 위한 K_Nearest Neighbors 를 위한 추정
+machine learning + deep learning <br>
+분류를 위한 K_Nearest Neighbors 를 위한 추정 <br>
 회귀를 위한 Regression
 - 선형회귀 linear Regression
 - 다항 회귀(polynomial regression)
