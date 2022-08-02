@@ -1,6 +1,8 @@
+#다중 분류 문제
 #logistic regression 이진 분류 문제에서 클래스 확률을 예측
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd
 
 fish = pd.read_csv('https://bit.ly/fish_csv_data')
@@ -18,3 +20,8 @@ ss.fit(train_input)
 train_scaled = ss.transform(train_input)
 test_scaled = ss.transform(test_input)
 
+#최근접이웃을 이용한 확률 예측
+kn = KNeighborsClassifier(n_neighbors=3)
+kn.fit(train_scaled, train_target)
+print(kn.score(train_scaled, train_target)) #0.89075    
+print(kn.score(test_scaled, test_target))   #0.85
