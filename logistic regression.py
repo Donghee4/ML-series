@@ -25,3 +25,5 @@ kn = KNeighborsClassifier(n_neighbors=3)
 kn.fit(train_scaled, train_target)
 print(kn.score(train_scaled, train_target)) #0.89075    
 print(kn.score(test_scaled, test_target))   #0.85
+
+#다중 분류 문제. 확률이 100%이지만 전혀 다른 예측(오답)이 나올 수 있을 수 있다
