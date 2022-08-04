@@ -20,10 +20,12 @@ ss.fit(train_input)
 train_scaled = ss.transform(train_input)
 test_scaled = ss.transform(test_input)
 
+#-----------------------------------
 #최근접이웃을 이용한 확률 예측
+#주변 이웃의 개수에 따라서 확률을 정함
 kn = KNeighborsClassifier(n_neighbors=3)
 kn.fit(train_scaled, train_target)
 print(kn.score(train_scaled, train_target)) #0.89075    
 print(kn.score(test_scaled, test_target))   #0.85
-
+#----------------------------
 #다중 분류 문제. 확률이 100%이지만 전혀 다른 예측(오답)이 나올 수 있을 수 있다
