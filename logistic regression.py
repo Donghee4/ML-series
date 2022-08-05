@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 import pandas as pd
+import numpy as np
 
 fish = pd.read_csv('https://bit.ly/fish_csv_data')
 # print(fish.head()) #데이터와 특성 확인
@@ -25,7 +26,16 @@ test_scaled = ss.transform(test_input)
 #주변 이웃의 개수에 따라서 확률을 정함
 kn = KNeighborsClassifier(n_neighbors=3)
 kn.fit(train_scaled, train_target)
-print(kn.score(train_scaled, train_target)) #0.89075    
-print(kn.score(test_scaled, test_target))   #0.85
-#----------------------------
-#다중 분류 문제. 확률이 100%이지만 전혀 다른 예측(오답)이 나올 수 있을 수 있다
+# print(kn.score(train_scaled, train_target)) #0.89075    
+# print(kn.score(test_scaled, test_target))   #0.85
+
+# print(kn.classes_)    #순서대로 'Bream' 'Parkki' 'Perch' 'Pike' 'Roach' 'Smelt' 'Whitefish' 로 저장됨
+print(kn.predict(test_scaled[:5]))
+proba = kn.predict_proba(test_scaled[:5])
+print(np.round(proba, decimals=4))  #각 클래스에 속할 확률(여기서는 이웃 데이터들의 클래스 비율을 나타냄)
+print(test_target[:5])
+
+#test_scaled 의 4번째 데이터의 정답은 whitefish지만 모델의 답은 perch라고 오답을 낸다
+
+distances, indexes = kn.kneighbors(test_scaled[3:4])
+print(train_target[indexes])
