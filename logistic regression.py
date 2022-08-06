@@ -43,3 +43,4 @@ test_scaled = ss.transform(test_input)
 # print(train_target[indexes])    #이웃 데이터의 답은 [['Roach' 'Perch' 'Perch']] 셋 모두 정답인 Whitefish 와 다름
 #-----------------------------------------------------
 
+#최근접이웃을 사용하지 않고 각 입력값에 multiplier를 적용한 z을 구하고, 시그모이드 함수를 이용해 확률을 구함
