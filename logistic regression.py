@@ -44,3 +44,7 @@ test_scaled = ss.transform(test_input)
 #-----------------------------------------------------
 
 #최근접이웃을 사용하지 않고 각 입력값에 multiplier를 적용한 z을 구하고, 시그모이드 함수를 이용해 확률을 구함
+bream_smelt_indexes = (train_target == 'Bream') | (train_target == 'Smelt')
+train_bream_smelt = train_scaled[bream_smelt_indexes]
+target_bream_smelt = train_target[bream_smelt_indexes]
+print(bream_smelt_indexes)
