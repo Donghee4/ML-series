@@ -64,3 +64,5 @@ decisions = lr.decision_function(train_bream_smelt[:5])
 print(expit(decisions))
 #----------------------------------------------------------------------------
 #다중 분류 수행
+decisions = lr.decision_function(train_bream_smelt[:5])
+print(expit(decisions))
