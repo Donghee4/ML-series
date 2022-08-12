@@ -67,6 +67,7 @@ test_scaled = ss.transform(test_input)
 #----------------------------------------------------------------------------
 #다중 분류 수행
 #z값을 사용하지만, 시그모이드를 사용하지 않음. 대신 소프트맥스를 사용함
+
 lr = LogisticRegression(C=20, max_iter=1000)    #C가 작을수록 규제가 커짐
 lr.fit(train_scaled, train_target)
 print(lr.score(train_scaled, train_target))     #0.93277
@@ -75,6 +76,6 @@ print(lr.predict(test_scaled[:5]))
 # print(test_target[:5])
 proba = lr.predict_proba(test_scaled[:5])
 print(np.round(proba,decimals=3))
-print(lr.classes_)
+# print(lr.classes_)
 print(lr.coef_.shape,lr.intercept_.shape)       #(7,5),(7,) 클래스 7개이므로 z을 7번 계산, 특성은 5개
 
