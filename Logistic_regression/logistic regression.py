@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
-from scipy.special import expit #logistic sigmoid
+from scipy.special import expit,softmax #logistic sigmoid, softmax
 import pandas as pd
 import numpy as np
 
@@ -66,7 +66,7 @@ test_scaled = ss.transform(test_input)
 #----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
 #다중 분류 수행
-#시그모이드를 사용하지 않음. 소프트맥스를 사용함
+#z값을 사용하지만, 시그모이드를 사용하지 않음. 대신 소프트맥스를 사용함
 lr = LogisticRegression(C=20, max_iter=1000)    #C가 작을수록 규제가 커짐
 lr.fit(train_scaled, train_target)
 print(lr.score(train_scaled, train_target))     #0.93277
@@ -77,3 +77,4 @@ proba = lr.predict_proba(test_scaled[:5])
 print(np.round(proba,decimals=3))
 print(lr.classes_)
 print(lr.coef_.shape,lr.intercept_.shape)       #(7,5),(7,) 클래스 7개이므로 z을 7번 계산, 특성은 5개
+
