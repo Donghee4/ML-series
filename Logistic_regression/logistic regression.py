@@ -44,23 +44,36 @@ test_scaled = ss.transform(test_input)
 
 # distances, indexes = kn.kneighbors(test_scaled[3:4])
 # print(train_target[indexes])    #이웃 데이터의 답은 [['Roach' 'Perch' 'Perch']] 셋 모두 정답인 Whitefish 와 다름
-#-----------------------------------------------------
+#----------------------------------------------------------------------------
+#----------------------------------------------------------------------------
 #최근접이웃을 사용하지 않고 각 입력값에 multiplier를 적용한 z을 구하고, 시그모이드 함수를 이용해 확률을 구함
 #이진분류 시험 -> 잘 작동함
-bream_smelt_indexes = (train_target == 'Bream') | (train_target == 'Smelt')
-train_bream_smelt = train_scaled[bream_smelt_indexes]
-target_bream_smelt = train_target[bream_smelt_indexes]
-# print(bream_smelt_indexes)
-# print(train_target)
+# bream_smelt_indexes = (train_target == 'Bream') | (train_target == 'Smelt')
+# train_bream_smelt = train_scaled[bream_smelt_indexes]
+# target_bream_smelt = train_target[bream_smelt_indexes]
+# # print(bream_smelt_indexes)
+# # print(train_target)
 
-lr = LogisticRegression()
-lr.fit(train_bream_smelt, target_bream_smelt)
-# print(lr.predict(train_bream_smelt[:5]))
-# print(target_bream_smelt[:5])         #정답과 예측이 일치함
-# print(lr.predict_proba(train_bream_smelt[:5]))
-# print(lr.classes_)                    #알파벳순이므로 bream이 0, smelt가 1
-# print(lr.coef_, lr.intercept_)
-decisions = lr.decision_function(train_bream_smelt[:5])
-print(expit(decisions))
+# lr = LogisticRegression()
+# lr.fit(train_bream_smelt, target_bream_smelt)
+# # print(lr.predict(train_bream_smelt[:5]))
+# # print(target_bream_smelt[:5])         #정답과 예측이 일치함
+# # print(lr.predict_proba(train_bream_smelt[:5]))
+# # print(lr.classes_)                    #알파벳순이므로 bream이 0, smelt가 1
+# # print(lr.coef_, lr.intercept_)
+# decisions = lr.decision_function(train_bream_smelt[:5])
+# print(expit(decisions))
+#----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
 #다중 분류 수행
+#시그모이드를 사용하지 않음. 소프트맥스를 사용함
+lr = LogisticRegression(C=20, max_iter=1000)    #C가 작을수록 규제가 커짐
+lr.fit(train_scaled, train_target)
+print(lr.score(train_scaled, train_target))     #0.93277
+print(lr.score(test_scaled, test_target))       #0.925
+print(lr.predict(test_scaled[:5]))              
+# print(test_target[:5])
+proba = lr.predict_proba(test_scaled[:5])
+print(np.round(proba,decimals=3))
+print(lr.classes_)
+print(lr.coef_.shape,lr.intercept_.shape)       #(7,5),(7,) 클래스 7개이므로 z을 7번 계산, 특성은 5개
