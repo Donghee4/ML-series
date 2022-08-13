@@ -79,3 +79,4 @@ print(np.round(proba,decimals=3))
 # print(lr.classes_)
 print(lr.coef_.shape,lr.intercept_.shape)       #(7,5),(7,) 클래스 7개이므로 z을 7번 계산, 특성은 5개
 
+print(lr.classes_)
