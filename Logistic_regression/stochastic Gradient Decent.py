@@ -1,0 +1,1 @@
+#a way to learn data characteristic
