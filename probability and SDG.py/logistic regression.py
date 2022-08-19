@@ -1,6 +1,6 @@
 #다중 분류 문제
 #logistic regression 이름은 회귀지만 분류 모델임
-#이진 분류 문제에서 클래스 확률을 예측
+# 이진 및 다중 분류에서 확률을 결정
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import KNeighborsClassifier
